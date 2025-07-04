@@ -12,28 +12,25 @@ export default function Component() {
             <div className="flex items-center">
               <span className="text-xl font-semibold">My App</span>
             </div>
-            
+
             <div className="flex items-center space-x-4">
-              {session ? (
+              {!session && (
                 <>
-                  <span className="text-gray-700">
-                    {session.user.email}
-                  </span>
                   <button
-                    onClick={() => signOut()}
+                    onClick={() => signIn("github")}
+                    className="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded-md transition duration-200"
+                  >
+                    Sign in with GitHub
+                  </button>
+                  <button
+                    onClick={() => signIn("google")}
                     className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-200"
                   >
-                    Sign out
+                    Sign in with Google
                   </button>
                 </>
-              ) : (
-                <button
-                  onClick={() => signIn("github")}
-                  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition duration-200"
-                >
-                  Sign in
-                </button>
               )}
+
             </div>
           </div>
         </div>
@@ -42,7 +39,9 @@ export default function Component() {
       {session && (
         <div className="max-w-6xl mx-auto px-4 py-8">
           <h2 className="text-2xl font-bold mb-4">Welcome {session.user.name}!</h2>
-          <p className="text-gray-600">You are signed in with GitHub.</p>
+          <p className="text-gray-600">You are signed in with {session.provider === "google" ? "Google" : "GitHub"}.
+</p>
+
         </div>
       )}
     </div>
